@@ -85,7 +85,7 @@ TXT и CSV файлы, размещённые в Object Storage
 ---
 ## Задание 3: Визуализация в Yandex DataLens
 
-С помощью **Yandex DataLens** были построены дашборды на основе данных из таблиц `orders` и `order_items`, загруженных в ClickHouse.
+С помощью **Yandex DataLens** были построены дашборды на основе данных из таблиц `orders` и `order_items` в ClickHouse.
 
 
 ### Визуализация 1: Динамика заказов по датам
