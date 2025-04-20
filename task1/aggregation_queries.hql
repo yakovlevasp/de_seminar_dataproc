@@ -38,12 +38,12 @@ ORDER BY hour_of_day;
 
 -- 5. JOIN с логами и анализ категорий
 SELECT
-    t.category as category,
+    l.category as category,
     COUNT(DISTINCT t.transaction_id) as transaction_count,
     COUNT(l.log_id) as log_entries,
     AVG(t.amount) as avg_amount,
     SUM(CASE WHEN t.is_fraud = 1 THEN 1 ELSE 0 END) as fraud_count
 FROM user_transactions.transactions_v2 t
-LEFT JOIN user_transactions.logs_v2 l ON t.transaction_id = l.transaction_id
-GROUP BY t.category
+JOIN user_transactions.logs_v2 l ON t.transaction_id = l.transaction_id
+GROUP BY l.category
 ORDER BY transaction_count DESC;

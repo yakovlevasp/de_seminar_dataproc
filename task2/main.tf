@@ -54,7 +54,7 @@ resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
 
 # Создаем S3 бакет
 resource "yandex_storage_bucket" "orders-bucket" {
-  bucket     = "task2-orders-bucket"
+  bucket     = "task-2-orders-bucket"
   access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
   secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
 }
@@ -70,11 +70,11 @@ resource "yandex_storage_object" "orders" {
 
 resource "yandex_storage_object" "order_items" {
   bucket       = yandex_storage_bucket.orders-bucket.bucket
-  key          = "order_items.csv"
-  source       = "${path.module}/data/order_items.csv"
+  key          = "order_items.txt"
+  source       = "${path.module}/data/order_items.txt"
   access_key   = yandex_iam_service_account_static_access_key.sa-static-key.access_key
   secret_key   = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
-  content_type = "text/csv"
+  content_type = "text/plain"
 }
 
 # Создаем ClickHouse кластер
@@ -86,6 +86,7 @@ resource "yandex_mdb_clickhouse_cluster" "clickhouse-cluster" {
   service_account_id = yandex_iam_service_account.clickhouse-sa.id # привязываем сервисный аккаунт
   access {
     web_sql = true
+    data_lens = true
   }
 
   clickhouse {
@@ -100,7 +101,6 @@ resource "yandex_mdb_clickhouse_cluster" "clickhouse-cluster" {
       }
     }
   }
-
 
   database {
     name = "orders"

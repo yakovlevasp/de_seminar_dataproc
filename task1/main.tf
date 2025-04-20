@@ -91,7 +91,7 @@ resource "yandex_vpc_default_security_group" "dataproc_default_sg" {
 
 # Бакет для хранения данных
 resource "yandex_storage_bucket" "dataproc_bucket" {
-  bucket        = "task1-transactions-bucket"
+  bucket        = "task1-transactions-bucket-b1gbmhga2f59uao8jrf0"
   access_key    = yandex_iam_service_account_static_access_key.sa_key.access_key
   secret_key    = yandex_iam_service_account_static_access_key.sa_key.secret_key
   force_destroy = true

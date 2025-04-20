@@ -2,30 +2,29 @@
 CREATE TABLE orders
 (
     order_id UInt32,
-    user_email String,
-    payment_status String,
-    payment_method String,
+    user_id UInt32,
     order_date DateTime,
     total_amount Float32,
-    shipping_address String
+    payment_status String
 )
 ENGINE = S3(
-    'https://storage.yandexcloud.net/task2-orders-bucket/orders.csv',
-    'CSV'
+    'https://storage.yandexcloud.net/task-2-orders-bucket/orders.csv',
+    'CSVWithNames'
 )
 
 
 -- Создание таблицы order_items
 CREATE TABLE order_items
 (
+    item_id UInt32,
     order_id UInt32,
-    product_code String,
     product_name String,
-    quantity UInt8,
-    price Float32,
-    discount Float32
+    product_price Float32,
+    quantity UInt32
 )
 ENGINE = S3(
-    'https://storage.yandexcloud.net/task2-orders-bucket/order_items.csv',
-    'CSV'
+    'https://storage.yandexcloud.net/task-2-orders-bucket/order_items.txt',
+    'CSVWithNames'
 )
+SETTINGS
+    format_csv_delimiter = ';'
